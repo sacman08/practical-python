@@ -1,8 +1,8 @@
 # mortgage.py
 
-principal = 500000.0
-rate = 0.05
-payment = 2684.11
+principal = 140000.0
+rate = 0.0625
+payment = 1145.11
 total_paid = 0.0
 month = 0
 
@@ -23,6 +23,7 @@ while principal > 0:
     
 print('Total paid', round(total_paid, 2))
 print('Months', month)
+print('Years', month / 12)
 
 
 
