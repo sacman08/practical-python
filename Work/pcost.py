@@ -7,23 +7,23 @@
 #calculates how much it cost to purchase all of the shares in the portfolio.
 #TODO Sloppy add in last line. Correct with for loop to look for int and float to total
 
-filename = 'Data/portfolio.csv'
-records = []
-totals = []
-with open('Data/portfolio.csv', 'rt') as f:
-    next(f)
-    for line in f:
-        row = line.split(',')
-        records.append(row[0])
-        records.append(int(row[1]) * float(row[2]))
-        
-    for x in records:
-        if records[x].is_integer:
-            if records[x+1].is_float:
-                totals = records[x] * records[x+1]
-            else:
-                break
+import csv
+
+filename = "Data/portfolio.csv"
+
+def portfolio_cost(filename):
+
+    total_cost = 0.0
+
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        headers = next(rows)
+        for row in rows:
+            nshares = int(row[1])
+            price = float(row[2])
+            total_cost += nshares * price
+    return total_cost
             
 #print(records)
-print('Total cost for all shares:', totals)
+print("Total share cost:", portfolio_cost(filename))
         
