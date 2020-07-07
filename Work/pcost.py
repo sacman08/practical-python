@@ -19,25 +19,24 @@ def portfolio_cost(filename):
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
-        for row in rows:
-            while True:
-                try:
-                    nshares = int(row[1])
-                    price = float(row[2])
-                    total_cost += nshares * price
-                    print("Data for", row[0], "added.")
-                    break
-                except ValueError:
-                    print("Value data missing for", row[0], "row.")
-                    break
+        for rowno, row in enumerate(rows, start=1):
+            record = dict(zip(headers, row))
+            try:
+                nshares = int(record['shares'])
+                price = float(record['price'])
+                total_cost += nshares * price
+                print(row)
+                #break                
+                    
+            except ValueError:
+                print(f'Row {rowno}: Bad data in row: {row}')  #New error
+                #print("Value data missing for", row[0], "row.") # Old error
+                #break
     return total_cost
             
 
 def main():
-    if len(sys.argv) == 2:
-        filename = sys.argv[1]
-    else:
-        filename = 'Data/portfolio.csv'
+    filename = 'Data/portfoliodate.csv'
     cost = portfolio_cost(filename)
     print('Total cost:', cost)
         

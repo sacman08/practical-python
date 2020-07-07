@@ -2,28 +2,44 @@
 #
 # Exercise 2.4
 
+# Exercise 2.16
+# Modify the report.py program you wrote in Section 2.3 so that it uses the same technique to pick out column headers.
+# Try running the report.py program on the Data/portfoliodate.csv file and see that it produces the same answer as before.
+
 
 
 import csv
-filename = 'Data\portfolio.csv'
-def portfolio_cost(filename):
-    '''Computes the total cost (shares*price) of a portfolio file'''
-    total_cost = 0.0
 
+def portfolio_cost(filename):
+    total_cost = 0.0
+    #total_cost is an string type integer
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
-        for row in rows:
-            nshares = int(row[1])
-            price = float(row[2])
+        for rowno, row in enumerate(rows, start=1):
+            record = dict(zip(headers, row))
+            nshares = int(record['shares'])
+            price = float(record['price'])
             total_cost += nshares * price
     return total_cost
 
 def read_portfolio(filename):
     total_cost = []
-    for row in rows:
-        holding = (row[0], int(row[1]), float(row[2]))
-        portfolio.append(holding)
+    #total_cost is a list
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        headers = next(rows)
+        for rowno, row in enumerate(rows, start=1):
+            record = dict(zip(headers, row))
+            nshares = int(record['shares'])
+            price = float(record['price'])
+            total_cost += nshares * price  #list doesn't let floats to be iterable
     return portfolio
 
-print(read_portfolio(filename))
+def main():
+    filename = 'Data\portfoliodate.csv'
+    total_cost = portfolio_cost(filename)
+    print(read_portfolio(filename))
+    
+if __name__ == '__main__':
+    main()
