@@ -33,7 +33,8 @@ def read_portfolio(filename):
             record = dict(zip(headers, row))
             nshares = int(record['shares'])
             price = float(record['price'])
-            total_cost += nshares * price  #list doesn't let floats to be iterable
+            total_cost += nshares
+            * price  #list doesn't let floats to be iterable
     return portfolio
 
 def main():
